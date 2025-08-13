@@ -4,7 +4,7 @@ import bpy, bmesh, math, mathutils
 class GenerateUVOperator(Operator):
     bl_idname = "object.generate_uv"
     bl_label = "Generate UVs"
-    bl_description = "Does what it says"
+    bl_description = "Generates the two UV maps using the specified settings."
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
@@ -135,7 +135,7 @@ class GenerateUVOperator(Operator):
 class BulkSelectUVOperator(Operator):
     bl_idname = "object.bulk_select_uv"
     bl_label = "Bulk Select UVs"
-    bl_description = "Does what it says"
+    bl_description = "Selects the specified UV map for every visible Mesh (if applicable)."
     bl_options = {'REGISTER', 'UNDO'}
 
     uv_name: bpy.props.StringProperty()
@@ -151,6 +151,58 @@ class BulkSelectUVOperator(Operator):
         meshes = [o for o in context.scene.objects if o.type == 'MESH' and o.visible_get() and self.uv_name in o.data.uv_layers]
         for m in meshes:
             m.data.uv_layers[self.uv_name].active = True
+
+        return {'FINISHED'}
+
+class BulkRenderActivateUVOperator(Operator):
+    bl_idname = "object.bulk_render_activate_uv"
+    bl_label = "Bulk Activate UVs"
+    bl_description = "Activates the specified UV map for render for every visible Mesh (if applicable)."
+    bl_options = {'REGISTER', 'UNDO'}
+
+    uv_name: bpy.props.StringProperty()
+
+    @classmethod
+    def poll(cls, context):
+        return context.selected_objects is not None and context.scene.fnak_util_settings is not None
+    
+    def execute(self, context):
+        if self.uv_name == "":
+            self.uv_name = context.scene.fnak_util_settings.source_uv_name
+
+        meshes = [o for o in context.scene.objects if o.type == 'MESH' and o.visible_get() and self.uv_name in o.data.uv_layers]
+        for m in meshes:
+            m.data.uv_layers[self.uv_name].active_render = True
+
+        return {'FINISHED'}
+
+class BulkDeleteUVOperator(Operator):
+    bl_idname = "object.bulk_delete_uv"
+    bl_label = "Bulk Delete UVs"
+    bl_description = "Deletes all UV maps except the one specified for EVERY visible Mesh."
+    bl_options = {'REGISTER', 'UNDO'}
+
+    uv_name: bpy.props.StringProperty()
+
+    @classmethod
+    def poll(cls, context):
+        return context.selected_objects is not None and context.scene.fnak_util_settings is not None
+    
+    def execute(self, context):
+        if self.uv_name == "":
+            self.uv_name = context.scene.fnak_util_settings.baking_uv_name
+
+        meshes = [o for o in context.scene.objects if o.type == 'MESH' and o.visible_get() and self.uv_name in o.data.uv_layers]
+        for i, obj in enumerate(meshes):
+            l = list()
+            for u in meshes[i].data.uv_layers.values():
+                if self.uv_name != u.name:
+                    print(f"{u.name} does NOT match the uv_name {self.uv_name}, meaning deletion!")
+                    l.append(u.name)
+            
+            print(f"the full list: ")
+            for u in l:
+                meshes[i].data.uv_layers.remove(meshes[i].data.uv_layers[u])
 
         return {'FINISHED'}
 

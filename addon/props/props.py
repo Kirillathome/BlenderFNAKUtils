@@ -5,7 +5,7 @@
 # http://www.wtfpl.net/ for more details.
 
 from bpy.props import BoolProperty, StringProperty, CollectionProperty, PointerProperty, IntProperty
-from bpy.types import PropertyGroup, Material
+from bpy.types import PropertyGroup, Material, Image
 
 class MaterialProperties(PropertyGroup):
     material: PointerProperty(type=Material)
@@ -51,6 +51,13 @@ class SceneProperties(PropertyGroup):
         default=False,
     )
 
+    enabled_materials: CollectionProperty(
+        name="Enabled Materials",
+        description="Materials for which the UV maps will be generated",
+        type=MaterialProperties,
+    )
+
+
     source_texture_size: IntProperty(
         name="Source Texture Size",
         description="Common size of the source textures (used for calculating atlas size)",
@@ -61,8 +68,13 @@ class SceneProperties(PropertyGroup):
         default=1024,
     )
 
-    enabled_materials: CollectionProperty(
-        name="Enabled Materials",
-        description="Materials for which the UV maps will be generated",
-        type=MaterialProperties,
+    target_node_name: StringProperty(
+        name="Target Node Name",
+        default="FNAK Image Texture",
+        maxlen=64,
+        description="Name of the Image Texture Node which will be selected/modified",
+    )
+    target_image: PointerProperty(
+        name="Target Image",
+        type=Image,
     )

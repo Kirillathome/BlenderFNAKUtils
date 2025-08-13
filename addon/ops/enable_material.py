@@ -10,7 +10,7 @@ import bpy
 class PrintEnabledOperator(Operator):
     bl_idname = "material.print_enabled"
     bl_label = "Print Enabled Materials"
-    bl_description = "Does what it says"
+    bl_description = "Prints all enabled Materials. Will (probably) be removed in the future."
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
@@ -26,7 +26,7 @@ class PrintEnabledOperator(Operator):
 class EnableMaterialOperator(Operator):
     bl_idname = "material.fnak_enable"
     bl_label = "Enable Material for FNAK"
-    bl_description = "Does what it says"
+    bl_description = "Enables the specified Material for FNAK."
     bl_options = {'REGISTER', 'UNDO'}
 
     material_name: bpy.props.StringProperty()
@@ -64,7 +64,7 @@ class EnableMaterialOperator(Operator):
 class DisableMaterialOperator(Operator):
     bl_idname = "material.fnak_disable"
     bl_label = "Disable Material for FNAK"
-    bl_description = "Does what it says"
+    bl_description = "Disables the specified Material for FNAK."
     bl_options = {'REGISTER', 'UNDO'}
 
     material_name: bpy.props.StringProperty()
@@ -100,7 +100,7 @@ class DisableMaterialOperator(Operator):
 class EnableAllOperator(Operator):
     bl_idname = "material.fnak_enable_all"
     bl_label = "Enable every Material for FNAK"
-    bl_description = "Does what it says"
+    bl_description = "Enables every Material for FNAK."
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
@@ -125,7 +125,7 @@ class EnableAllOperator(Operator):
 class DisableAllOperator(Operator):
     bl_idname = "material.fnak_disable_all"
     bl_label = "Disable every Material for FNAK"
-    bl_description = "Does what it says"
+    bl_description = "Disables every Material for FNAK."
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod

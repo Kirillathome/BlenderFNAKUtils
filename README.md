@@ -25,11 +25,12 @@ There are more settings of course:
 
 ## is it done?
 No. There are still a few things that I'd like to add is:
-1. Bulk-adding Image Textures/Nodes to all Materials
-2. Selecting said Nodes to be used as an output for baking
-3. Add pretty images to this README
-4. Delete unused code
-5. (maybe) select all Mesh that don't have a Material yet
+1. Bulk-adding Image Textures/Nodes to all Materials (this is done)
+2. Selecting said Nodes to be used as an output for baking (this is also done)
+3. Update the README to include documentation on the new features
+4. Add pretty images to this README
+5. Delete unused code
+6. (maybe) select all Mesh that don't have a Material yet
 
 ## is it stable?
 It worked the last time I tested it, but I wouldn't trust this thing.

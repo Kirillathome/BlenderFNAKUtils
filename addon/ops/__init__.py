@@ -7,7 +7,10 @@
 import bpy
 from .print_name import PrintNameOperator
 from .enable_material import *
-from .generate_uv import GenerateUVOperator, BulkSelectUVOperator
+from .generate_uv import GenerateUVOperator, BulkSelectUVOperator, BulkRenderActivateUVOperator, BulkDeleteUVOperator
+from .select_node import BulkEditNodeOperator
+
+# SURELY there is a better way to do this, right?
 
 def register():
     print("registering ops")
@@ -19,7 +22,9 @@ def register():
     bpy.utils.register_class(DisableAllOperator)
     bpy.utils.register_class(GenerateUVOperator)
     bpy.utils.register_class(BulkSelectUVOperator)
-    
+    bpy.utils.register_class(BulkRenderActivateUVOperator)
+    bpy.utils.register_class(BulkDeleteUVOperator)
+    bpy.utils.register_class(BulkEditNodeOperator)
 
 def unregister():
     print("unregistering ops")
@@ -31,3 +36,6 @@ def unregister():
     bpy.utils.unregister_class(DisableAllOperator)
     bpy.utils.unregister_class(GenerateUVOperator)
     bpy.utils.unregister_class(BulkSelectUVOperator)
+    bpy.utils.unregister_class(BulkRenderActivateUVOperator)
+    bpy.utils.unregister_class(BulkDeleteUVOperator)
+    bpy.utils.unregister_class(BulkEditNodeOperator)
